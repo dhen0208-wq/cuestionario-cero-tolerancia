@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minijuego de Preguntas Interactivo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap" rel="stylesheet">
-
+    <title>Cestionario de Reflexión</title>
     <style>
         /* Estilos generales */
         body {
@@ -39,6 +35,7 @@
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: url(https://portalemcali.onrender.com/img/Navbar/Logo.png);
             background-repeat: no-repeat;
+            background-position: center;
             background-size: contain; /* Ajusta la imagen para que quepa completamente */
             opacity: 0.14;
             z-index: -1; /* Coloca el fondo detrás del contenido */
@@ -69,7 +66,7 @@
 
         #question-title {
             color: #000;
-            border-bottom: 2px solid #007BFF;
+            border-bottom: 2px solid #13cc3e;
             padding-bottom: 10px;
         }
 
@@ -136,7 +133,7 @@
             color: #000000;
             font-weight: bold;
         }
-        
+       
         /* Cambia el color del número cuando la barra pasa por encima */
         .rating-bar-container.selected .rating-bar-segment.active span {
             color: rgb(255, 255, 255);
@@ -159,11 +156,19 @@
         #prev-btn, #next-btn {
             padding: 10px 20px;
             border: none;
-            background-color: #28a745;
             color: white;
             border-radius: 5px;
             cursor: pointer;
             font-size: 1em;
+        }
+
+        #prev-btn {
+            background-color: #0d5c1f;
+            color: white;
+        }
+        #next-btn {
+            background-color: #13cc3e;
+            color: #000;
         }
 
         #prev-btn:disabled, #next-btn:disabled {
@@ -223,7 +228,7 @@
             border-radius: 50%;
             cursor: pointer;
             font-size: 0.9em;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.7s, color 0.7s;
         }
 
         .page-number:hover {
@@ -232,9 +237,10 @@
 
         /* Estilo para el número de página actual */
         .page-number.current {
-            background-color: #007BFF;
-            color: white;
-            border-color: #007BFF;
+            background-color: #0d5c1f;
+            color: rgb(211, 211, 211);
+            font-size: 1em;
+            border-color: #13cc3e;
         }
 
         /* --- NUEVO: Estilo para paginación deshabilitada --- */
@@ -291,7 +297,8 @@
         #restart-btn {
             padding: 12px 25px;
             border: none;
-            background-color: #007BFF;
+            background: linear-gradient(to bottom right, #13cc3e, #0d5c1f);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
             color: white;
             border-radius: 5px;
             cursor: pointer;
@@ -317,14 +324,13 @@
     </style>
 </head>
 <body>
-
     <div class="book-container">
         <!-- Lado Izquierdo: Preguntas y Navegación -->
         <div class="page left-page">
             <!-- Vista de Preguntas -->
             <div id="question-view">
                 <div class="question-content">
-                    <h2 id="question-title">Pregunta #1</h2>
+                    <h2 id="question-title">Pregunta # 1</h2>
                     <p id="question-text">Aquí irá el texto de la pregunta.</p>
                 </div>
 
@@ -369,7 +375,7 @@
             </p>
         </div>
         <div id="summary-footer-text" class="hidden">
-                Porque el verdadero cambio COMIENZA DESDE ADENTRO
+                Porque el verdadero cambio <span style="color: #13cc3e;">COMIENZA DESDE ADENTRO</span>
         </div>
     </div>
 
@@ -381,35 +387,35 @@
                 id: 1,
                 questionText: "¿Has pensado alguna vez que los hombres son naturalmente superiores a las mujeres?",
                 explanationTitle: "Actitudes de superioridad masculina",
-                explanationText: "1. ​¿T​e parece que los hombres son más aptos para liderar en el trabajo o la política que las mujeres?<br>2. ¿Crees que los hombres deben ser siempre los proveedores principales de una familia, mientras que las mujeres deben encargarse del hogar?<br>3. ¿Sientes que los hombres tienen el derecho de tomar decisiones importantes en la vida de una mujer (como su carrera o su vid​a socia​l)?<br>4. ¿Plensas que una mujer n​o debería desafiar a un hombre en una conversación o en una situación de poder?<br>5. ¿Te incomoda que una mujer tenga más éxito a reconocimiento en un área tradicionalmente dominada por hombres?",
+                explanationText: "​<b style='font-size: 1.4em'>1.</b> ​¿T​e parece que los hombres son más aptos para liderar en el trabajo o la política que las mujeres?<br>​<b style='font-size: 1.4em'>2.</b> ¿Crees que los hombres deben ser siempre los proveedores principales de una familia, mientras que las mujeres deben encargarse del hogar?<br>​<b style='font-size: 1.4em'>3.</b> ¿Sientes que los hombres tienen el derecho de tomar decisiones importantes en la vida de una mujer (como su carrera o su vid​a socia​l)?<br>​<b style='font-size: 1.4em'>4.</b> ¿Plensas que una mujer n​o debería desafiar a un hombre en una conversación o en una situación de poder?<br>​<b style='font-size: 1.4em'>5.</b> ¿Te incomoda que una mujer tenga más éxito a reconocimiento en un área tradicionalmente dominada por hombres?",
                 answer: null
             },
             {
                 id: 2,
                 questionText: "¿Has ignorado o minimizado las experiencias y emociones de las mujeres?",
                 explanationTitle: "Falta de empatía o comprensión hacia las mujeres",
-                explanationText: "1. ¿Te ha pasado alguna vez que no prestamos atención a lo que una mujer está diciendo, porque no crees que sea tan importante?<br>2. ¿Tiendes a minimizar los problemas o preocupaciones de las mujeres en tu vida, como si no fueran tan serias o urgentes como los de los hombres?<br>3. ¿Cuándo una mujer expresa molestia o tristeza, sueles pensar que está exagerando o actuando de forma irracional?4. ¿En una discusión, has interrumpido a una mujer para 'corregir' su opinión, sin darle espacio para que termine de expresar sus pensamientos?<br>5. ¿Crees que las mujeres deben ser más 'razonables' o 'controladas' en sus reacciones emocionales, mientras que se toleran más las explosiones emocionales de los hombres?",
+                explanationText: "​<b style='font-size: 1.4em'>1.</b> ¿Te ha pasado alguna vez que no prestamos atención a lo que una mujer está diciendo, porque no crees que sea tan importante?<br>​<b style='font-size: 1.4em'>2.</b> ¿Tiendes a minimizar los problemas o preocupaciones de las mujeres en tu vida, como si no fueran tan serias o urgentes como los de los hombres?<br>​<b style='font-size: 1.4em'>3.</b> ¿Cuándo una mujer expresa molestia o tristeza, sueles pensar que está exagerando o actuando de forma irracional?<br>​<b style='font-size: 1.4em'>4.</b> ¿En una discusión, has interrumpido a una mujer para 'corregir' su opinión, sin darle espacio para que termine de expresar sus pensamientos?<br>​<b style='font-size: 1.4em'>5.</b> ¿Crees que las mujeres deben ser más 'razonables' o 'controladas' en sus reacciones emocionales, mientras que se toleran más las explosiones emocionales de los hombres?",
                 answer: null
             },
             {
                 id: 3,
                 questionText: "​¿Has utilizado alguna vez términos o frases que refuercen los estereotipos de género?",
                 explanationTitle: "​Uso de lenguaje sexista",
-                explanationText: "1. ¿Has utilizado alguna vez términos despectivos para referirse a las mujeres, como ​'histérica​' o ​'deberías estar en la cocina​'?<br>2. ¿Tienes comentarios sobre la apariencia física de las mujeres que las reducen a objetos o algo superficial?<br>3. ¿Te has sentido cómodo haciendo bromas o chistes sexistas sobre las mujeres en tu círculo social?<br>4. ¿Consideras que hay frases que, aunque no sean ​'malas​', pueden hacer sentir a las mujeres menospreciadas, como ​'las chicas no saben de fútbol​' o ​'tú eres muy sensible para eso​'?<br>5. ¿Alguna vez has ridiculizado a una mujer por no cumplir con los estándares tradicionales de belleza o feminidad en tu conversación diaria?",
+                explanationText: "​<b style='font-size: 1.4em'>1.</b> ¿Has utilizado alguna vez términos despectivos para referirse a las mujeres, como ​'histérica​' o ​'deberías estar en la cocina​'?<br>​<b style='font-size: 1.4em'>2.</b> ¿Tienes comentarios sobre la apariencia física de las mujeres que las reducen a objetos o algo superficial?<br>​<b style='font-size: 1.4em'>3.</b> ¿Te has sentido cómodo haciendo bromas o chistes sexistas sobre las mujeres en tu círculo social?<br>​<b style='font-size: 1.4em'>4.</b> ¿Consideras que hay frases que, aunque no sean ​'malas​', pueden hacer sentir a las mujeres menospreciadas, como ​'las chicas no saben de fútbol​' o ​'tú eres muy sensible para eso​'?<br>​<b style='font-size: 1.4em'>5.</b> ¿Alguna vez has ridiculizado a una mujer por no cumplir con los estándares tradicionales de belleza o feminidad en tu conversación diaria?",
                 answer: null
             },
             {
                 id: 4,
                 questionText: "¿Has intentado controlar las decisiones o el comportamiento de una mujer basándote en su rol de género?",
                 explanationTitle: "Control y objetificación de las mujeres",
-                explanationText: "1. ¿Alguna vez has tomado decisiones importantes por una mujer sin preguntarle su opinión, pensando que sabías que era lo mejor para ella?<br>2. ¿Te has sentido con derecho a opinar sobre cómo una mujer debe vestir, lo que debe hacer o cómo debe comportarse, dependiendo de su entorno o la situación?<br>3. ¿Has intentado influir en las decisiones profesionales de una mujer, como su elección de carrera, pensando que debería elegir algo ​'más adecuado​' para una mujer?<br>4. ¿Piensas que las mujeres deben comportarse de una manera más ​'tradicional​' (por ejemplo, ser más sumis​as o reservadas) para que no se les critique?<br>5. ¿Te parece que una mujer que toma decisiones independientes sobre su vida o su cuerpo está actuando de forma ​'incorrecta​' o desafiante hacia las normas?",
+                explanationText: "​<b style='font-size: 1.4em'>1.</b> ¿Alguna vez has tomado decisiones importantes por una mujer sin preguntarle su opinión, pensando que sabías que era lo mejor para ella?<br>​<b style='font-size: 1.4em'>2.</b> ¿Te has sentido con derecho a opinar sobre cómo una mujer debe vestir, lo que debe hacer o cómo debe comportarse, dependiendo de su entorno o la situación?<br>​<b style='font-size: 1.4em'>3.</b> ¿Has intentado influir en las decisiones profesionales de una mujer, como su elección de carrera, pensando que debería elegir algo ​'más adecuado​' para una mujer?<br>​<b style='font-size: 1.4em'>4.</b> ¿Piensas que las mujeres deben comportarse de una manera más ​'tradicional​' (por ejemplo, ser más sumis​as o reservadas) para que no se les critique?<br>​<b style='font-size: 1.4em'>5.</b> ¿Te parece que una mujer que toma decisiones independientes sobre su vida o su cuerpo está actuando de forma ​'incorrecta​' o desafiante hacia las normas?",
                 answer: null
             },
             {
                 id: 5,
                 questionText: "¿Has sentido celos o posesividad hacia las mujeres en tu vida?",
                 explanationTitle: "Celos y posesividad",
-                explanationText: "​1. ¿Te molesta que una mujer pase tiempo con amigos o familiares sin tu presencia, sintiendo que no es apropiado?​<br>2. ¿Sientes celos cuando una mujer tiene éxito o es admirada por otras personas, especialmente si no está relacionada contigo?​<br>3. ¿Controlas las actividades de una mujer, como qué amigos pueden ver o qué lugares pueden visitar, sin darle espacio para su autonomía?<br>4. ¿Tiendes a ser desconfiado hacia las mujeres que muestran Independencia a que pasan tiempo lejos de ti?​<br>5. ¿Crees que es natural que un hombre se sienta celoso ​o posesivo si una mujer tiene una vida social activa o si le presta​ atención a otros hombres?",
+                explanationText: "​​<b style='font-size: 1.4em'>1.</b> ¿Te molesta que una mujer pase tiempo con amigos o familiares sin tu presencia, sintiendo que no es apropiado?​<br>​<b style='font-size: 1.4em'>2.</b> ¿Sientes celos cuando una mujer tiene éxito o es admirada por otras personas, especialmente si no está relacionada contigo?​<br>​<b style='font-size: 1.4em'>3.</b> ¿Controlas las actividades de una mujer, como qué amigos pueden ver o qué lugares pueden visitar, sin darle espacio para su autonomía?<br>​<b style='font-size: 1.4em'>4.</b> ¿Tiendes a ser desconfiado hacia las mujeres que muestran Independencia a que pasan tiempo lejos de ti?​<br>​<b style='font-size: 1.4em'>5.</b> ¿Crees que es natural que un hombre se sienta celoso ​o posesivo si una mujer tiene una vida social activa o si le presta​ atención a otros hombres?",
                 answer: null
             }
         ];
@@ -487,11 +493,11 @@
 
             });
         }
-        
+       
         // Función para actualizar la barra de calificación (con animación)
         function updateRatingBar(value) {
             const segments = ratingBar.querySelectorAll('.rating-bar-segment');
-            
+           
             // Limpia clases de color anteriores
             ratingBarFill.classList.remove('color-1', 'color-2', 'color-3', 'color-4', 'color-5');
 
@@ -524,8 +530,9 @@
             summaryView.classList.remove('hidden');
 
             // Actualizar página derecha
-            explanationTitleEl.textContent = "";
-            explanationTextEl.innerHTML = "Gracias por regalarte este tiempo para tomar conciencia sobre tu propio pensamiento y conductas.<br>Te invitamos a reflexionar con base a tus respuestas y seguir documentándote sobre este tema tan importante para la sana convivencia en el hogar, trabajo y tu comunidad.";
+            explanationTitleEl.classList.add('hidden'); // Ocultamos el título
+            explanationTextEl.classList.remove('hidden'); // Nos aseguramos que el texto sea visible
+            explanationTextEl.innerHTML = "<b style='font-size: 1.6em;'>Gracias por regalarte este tiempo para tomar conciencia sobre tu propio pensamiento y conductas.<br>Te invitamos a reflexionar con base a tus respuestas y seguir documentándote sobre este tema tan importante para la sana convivencia en el hogar, trabajo y tu comunidad.</b>";
 
             // Generar la barra de resumen
             const summaryBar = document.getElementById('summary-bar');
@@ -561,6 +568,9 @@
             paginationContainer.classList.remove('hidden');
             document.querySelector('.navigation-buttons').classList.remove('hidden');
             summaryFooterTextEl.classList.add('hidden'); // Ocultar el texto del pie de página
+           
+            // Volvemos a mostrar los elementos de la página derecha
+            explanationTitleEl.classList.remove('hidden');
 
             // Volver a la primera pregunta
             renderQuestion(0);
@@ -603,7 +613,7 @@
                 renderQuestion(index);
             }
         });
-        
+       
         // Guardar respuesta al hacer clic en la barra de calificación
         ratingBar.addEventListener('click', (e) => {
             const segment = e.target.closest('.rating-bar-segment');
