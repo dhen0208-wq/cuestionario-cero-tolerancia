@@ -133,7 +133,7 @@
             color: #000000;
             font-weight: bold;
         }
-        
+       
         /* Cambia el color del número cuando la barra pasa por encima */
         .rating-bar-container.selected .rating-bar-segment.active span {
             color: rgb(255, 255, 255);
@@ -549,11 +549,11 @@
 
             });
         }
-        
+       
         // Función para actualizar la barra de calificación (con animación)
         function updateRatingBar(value) {
             const segments = ratingBar.querySelectorAll('.rating-bar-segment');
-            
+           
             // Limpia clases de color anteriores
             ratingBarFill.classList.remove('color-1', 'color-2', 'color-3', 'color-4', 'color-5');
 
@@ -716,7 +716,7 @@
                 renderQuestion(index);
             }
         });
-        
+       
         // Guardar respuesta al hacer clic en la barra de calificación
         ratingBar.addEventListener('click', (e) => {
             const segment = e.target.closest('.rating-bar-segment');
