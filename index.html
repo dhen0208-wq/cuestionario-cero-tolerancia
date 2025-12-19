@@ -320,6 +320,57 @@
             font-weight: bold;
             text-align: center;
             z-index: 10; /* Por encima de otro contenido */
+            color: #000000;
+
+        }
+
+        /* --- NUEVO: ESTILOS PARA EL RESULTADO FINAL (NUBE DE NEÓN) --- */
+        #summary-result {
+            padding: 25px;
+            border-radius: 40px;
+            transition: all 0.5s ease-in-out;
+            animation: pulse-text 3s infinite;
+            color: #000000;
+        }
+
+        @keyframes pulse-text {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.03);
+            }
+        }
+
+        .neon-green {
+            color: #000000;
+            border: 2px solid #dfff73;
+            box-shadow: 0 0 5px #cdff1a, 0 0 15px #cdff1a, 0 0 25px #cdff1a, inset 0 0 5px #cdff1a;
+            text-shadow: 0 0 5px #cdff1a, 0 0 10px #cdff1a;
+        }
+        .neon-yellow {
+            color: #000000;
+            border: 2px solid #fff27a;
+            box-shadow: 0 0 5px #ffe600, 0 0 15px #ffe600, 0 0 25px #ffe600, inset 0 0 5px #ffe600;
+            text-shadow: 0 0 5px #ffe600, 0 0 10px #ffe600;
+        }
+        .neon-amber {
+            color: #000000;
+            border: 2px solid #ffc966;
+            box-shadow: 0 0 5px #ff9900, 0 0 15px #ff9900, 0 0 25px #ff9900, inset 0 0 5px #ff9900;
+            text-shadow: 0 0 5px #ff9900, 0 0 10px #ff9900;
+        }
+        .neon-orange {
+            color: #000000;
+            border: 2px solid #ff9b6b;
+            box-shadow: 0 0 5px #ff5e00, 0 0 15px #ff5e00, 0 0 25px #ff5e00, inset 0 0 5px #ff5e00;
+            text-shadow: 0 0 5px #ff5e00, 0 0 10px #ff5e00;
+        }
+        .neon-red {
+            color: #000000;
+            border: 2px solid #ff6666;
+            box-shadow: 0 0 5px #ff0000, 0 0 15px #ff0000, 0 0 25px #ff0000, inset 0 0 5px #ff0000;
+            text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000;
         }
     </style>
 </head>
@@ -352,6 +403,10 @@
                 <h2 id="summary-title">Resumen de tus Respuestas</h2>
                 <div class="summary-bar" id="summary-bar"></div>
                 <button id="restart-btn">Reiniciar Cuestionario</button>
+                <!-- NUEVO: Contenedor para el resultado final -->
+                <div id="summary-result" class="hidden" style="text-align: center; margin-top: 20px; font-size: 1.1em; line-height: 1.6;">
+                    <!-- El resultado se insertará aquí con JavaScript -->
+                </div>
             </div>
 
             <div class="navigation-buttons">
@@ -437,6 +492,7 @@
         const summaryView = document.getElementById('summary-view');
         const restartBtn = document.getElementById('restart-btn');
         const nextBtnWrapper = document.getElementById('next-btn-wrapper');
+        const summaryResultEl = document.getElementById('summary-result'); // Elemento para el resultado
         const summaryFooterTextEl = document.getElementById('summary-footer-text');
 
         // --- 4. FUNCIÓN PRINCIPAL PARA RENDERIZAR LA PREGUNTA ---
@@ -519,6 +575,47 @@
             });
         }
 
+        // --- NUEVO: Función para obtener el mensaje reflexivo basado en el porcentaje ---
+        function getReflectiveMessage(percentage) {
+            let result = { message: '', level: '' };
+            if (percentage <= 20) { // 1-5 puntos
+                result.message = `<b>¡Excelente! Tienes un ${percentage.toFixed(2)}% de actitudes de superioridad masculina.</b><br><br>Tus respuestas muestran un gran respeto por la igualdad. Sigue siendo un ejemplo y un aliado para el cambio.`;
+                result.level = 'green';
+            } else if (percentage <= 40) { // 6-10 puntos
+                result.message = `<b>Vas por buen camino, con un ${percentage.toFixed(2)}% de actitudes de superioridad masculina.</b><br><br>La mayoría de tus respuestas son respetuosas. Identificar las áreas de mejora es un gran paso.`;
+                result.level = 'yellow';
+            } else if (percentage <= 60) { // 11-15 puntos
+                result.message = `<b>Momento de autoevaluación. Tienes un ${percentage.toFixed(2)}% de actitudes de superioridad masculina.</b><br><br>Te invitamos a reflexionar sobre cómo estos pensamientos pueden afectar a las mujeres en tu vida.`;
+                result.level = 'amber';
+            } else if (percentage <= 80) { // 16-20 puntos
+                result.message = `<b>¡Cuidado! Tienes un ${percentage.toFixed(2)}% de actitudes de superioridad masculina.</b><br><br>Es crucial reflexionar sobre el impacto de estas creencias. Busca más información y escucha otras perspectivas.`;
+                result.level = 'orange';
+            } else { // 21-25 puntos
+                result.message = `<b>Alerta. Tienes un ${percentage.toFixed(2)}% de actitudes de superioridad masculina.</b><br><br>Esto es un llamado a la acción para reevaluar tus creencias. Reconocerlo es el primer paso hacia el cambio.`;
+                result.level = 'red';
+            }
+            return result;
+        }
+
+        // Función para calcular y mostrar el resultado final
+        function calculateAndShowResult() {
+            const totalScore = questions.reduce((sum, q) => sum + (q.answer || 0), 0);
+            const maxScore = questions.length * 5;
+            const percentage = (totalScore / maxScore) * 100;
+
+            // Obtener el objeto de resultado (mensaje y nivel)
+            const result = getReflectiveMessage(percentage);
+
+            // Mostrar el resultado
+            const summaryResultEl = document.getElementById('summary-result');
+            summaryResultEl.innerHTML = result.message;
+            // Limpiar clases anteriores y añadir la nueva
+            summaryResultEl.className = 'hidden'; // Limpia todo excepto 'hidden'
+            summaryResultEl.classList.add(`neon-${result.level}`);
+            summaryResultEl.classList.remove('hidden');
+        }
+
+
         // Función para mostrar la vista de resumen
         function showSummary() {
             // Ocultar vista de preguntas y navegación
@@ -553,6 +650,9 @@
                 }
                 summaryBar.appendChild(segment);
             });
+
+            // Calcular y mostrar el resultado final
+            calculateAndShowResult();
         }
 
         // Función para reiniciar el cuestionario
@@ -568,7 +668,10 @@
             paginationContainer.classList.remove('hidden');
             document.querySelector('.navigation-buttons').classList.remove('hidden');
             summaryFooterTextEl.classList.add('hidden'); // Ocultar el texto del pie de página
-           
+            summaryResultEl.classList.add('hidden'); // Ocultar el resultado
+            // Limpiar clases de neón del resultado
+            summaryResultEl.className = 'hidden';
+            
             // Volvemos a mostrar los elementos de la página derecha
             explanationTitleEl.classList.remove('hidden');
 
